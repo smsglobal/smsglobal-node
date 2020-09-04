@@ -1,0 +1,53 @@
+{
+  "name": "smsglobal",
+  "version": "1.0.0",
+  "description": "SDK for SMSGlobal rest api",
+  "homepage": "https://github.com/smsglobal/smsglobal-node#readme",
+  "bugs": "https://github.com/smsglobal/smsglobal-node/issues",
+  "keywords": [
+    "smsglobal",
+    "rest",
+    "api",
+    "sms"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smsglobal/smsglobal-node.git"
+  },
+  "author": {
+    "name": "Surinder Pal Singh",
+    "email": "surinderpal.singh@smsglobal.com"
+  },
+  "main": "./lib",
+  "scripts": {
+    "test": "nyc mocha",
+    "coverage": "nyc report --reporter=text-lcov > ccoverage.lcov",
+    "mocha-only": "mocha --full-trace",
+    "lint": "./node_modules/.bin/eslint --fix lib/* test/*"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "ajv": "^6.12.2",
+    "axios": "^0.19.2",
+    "luxon": "^1.25.0"
+  },
+  "devDependencies": {
+    "asset": "^0.4.13",
+    "chai": "^4.2.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-chai-friendly": "^0.6.0",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-prettier": "^3.1.4",
+    "install": "^0.13.0",
+    "mocha": "^8.0.1",
+    "nock": "^13.0.3",
+    "npm": "^6.14.5",
+    "nyc": "^15.1.0",
+    "prettier": "^2.0.5"
+  },
+  "engines": {
+    "node": ">=9 <=14"
+  }
+}

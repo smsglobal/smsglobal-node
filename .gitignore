@@ -1,0 +1,22 @@
+### Logs ###
+logs
+*.log
+
+### NPM modules & environment file ###
+node_modules
+!.env.example
+.env*
+.nyc_output
+
+### Custom ignores ###
+.idea
+
+### ide / editors ###
+.vscode
+
+### Libraries don't need locks files ###
+yarn.lock
+package-lock.json
+
+### Remove development related files
+Makefile
