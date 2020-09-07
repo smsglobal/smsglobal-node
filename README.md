@@ -2,6 +2,7 @@
 
 
 ![Build](https://github.com/smsglobal/smsglobal-node/workflows/Build/badge.svg?branch=master)
+[![codecov](https://codecov.io/gh/smsglobal/smsglobal-node/branch/master/graph/badge.svg)](https://codecov.io/gh/smsglobal/smsglobal-node)
 [![Sourcegraph](https://sourcegraph.com/github.com/smsglobal/smsglobal-node/-/badge.svg)](https://sourcegraph.com/github.com/smsglobal/smsglobal-node?badge)
 
 
