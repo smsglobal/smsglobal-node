@@ -6,14 +6,14 @@
 [![Sourcegraph](https://sourcegraph.com/github.com/smsglobal/smsglobal-node/-/badge.svg)](https://sourcegraph.com/github.com/smsglobal/smsglobal-node?badge)
 
 
-The SMSglobal Node library provides convenient access to the SMSglobal rest API from node applications.
+The SMSGlobal Node library provides convenient access to the SMSGlobal rest API from node applications.
 
 
 ## Example
  Check out the [code examples](examples)
 
 
-## SMSglobal rest API credentials
+## SMSGlobal rest API credentials
 
 Rest API credentials can be provided in the SMSGlobal client or node environment variables. The credential variables are `SMSGLOBAL_API_KEY` and `SMSGLOBAL_API_SECRET`
 
@@ -133,4 +133,4 @@ npm run mocha-only
 * sms-incoming
 
 # Reference
-[Rest api documentation](https://www.smsglobal.com/rest-api/)
+[REST API Documentation](https://www.smsglobal.com/rest-api/)
