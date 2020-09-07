@@ -6,7 +6,7 @@
 [![Sourcegraph](https://sourcegraph.com/github.com/smsglobal/smsglobal-node/-/badge.svg)](https://sourcegraph.com/github.com/smsglobal/smsglobal-node?badge)
 
 
-The SMSGlobal Node library provides convenient access to the SMSGlobal rest API from node applications.
+The SMSGlobal Node library provides convenient access to the SMSGlobal REST API from node applications.
 
 
 ## Example
