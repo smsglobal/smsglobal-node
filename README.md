@@ -129,8 +129,8 @@ npm run mocha-only
 
 
 ## Following endpoints are covered
-* sms
-* sms-incoming
+* [sms](https://www.smsglobal.com/rest-api/#api-endpoints)
+* [sms-incoming](https://www.smsglobal.com/rest-api/#api-endpoints)
 
 # Reference
 [REST API Documentation](https://www.smsglobal.com/rest-api/)
