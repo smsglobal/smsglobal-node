@@ -22,7 +22,7 @@ Rest API credentials can be provided in the SMSGlobal client or node environment
 ## Installation
 
 ```
-npm install --save smsglobal
+npm install --save https://github.com/smsglobal/smsglobal-node
 ```
 
 

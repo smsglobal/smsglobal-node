@@ -1,7 +1,7 @@
 
 const SMSGLOBAL_API_KEY = 'YOUR API KEY';
 const SMSGLOBAL_API_SECRET = 'YOUR API SECRET';
-const smsglobal = require('../lib')(SMSGLOBAL_API_KEY, SMSGLOBAL_API_SECRET);
+const smsglobal = require('smsglobal')(SMSGLOBAL_API_KEY, SMSGLOBAL_API_SECRET);
 const util = require('util');
 
 // Send sms
