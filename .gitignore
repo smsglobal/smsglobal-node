@@ -13,10 +13,12 @@ node_modules
 
 ### ide / editors ###
 .vscode
+.DS_Store
 
 ### Libraries don't need locks files ###
 yarn.lock
 package-lock.json
 
-### Remove development related files
+### Remove development and test related files
 Makefile
+ccoverage.lcov
