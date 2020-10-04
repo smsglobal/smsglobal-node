@@ -8,6 +8,8 @@
 
 The SMSGlobal Node library provides convenient access to the SMSGlobal REST API from node applications.
 
+Sign up for a [free SMSGlobal account](https://www.smsglobal.com/mxt-sign-up/?utm_source=dev&utm_medium=github&utm_campaign=node_sdk) today and get your API Key from our advanced SMS platform, MXT. Plus, enjoy unlimited free developer sandbox testing to try out your API in full!
+
 
 ## Example
  Check out the [code examples](examples)
@@ -16,7 +18,6 @@ The SMSGlobal Node library provides convenient access to the SMSGlobal REST API 
 ## SMSGlobal rest API credentials
 
 Rest API credentials can be provided in the SMSGlobal client or node environment variables. The credential variables are `SMSGLOBAL_API_KEY` and `SMSGLOBAL_API_SECRET`
-
 
 
 ## Installation
@@ -30,7 +31,6 @@ npm install --save https://github.com/smsglobal/smsglobal-node
 
 * Require `smsglobal` in your file
 
-
 ```
 const apiKey = 'YOUR_API_KEY';
 const apiSecret = 'YOUR_API_SECRET';
@@ -39,7 +39,6 @@ var smsglobal = require('smsglobal')(apiKey, secret);
 
 ### To send a sms
 ```
-
 var payload = {
     origin: 'from number',
     destination: 'destination',
@@ -49,9 +48,6 @@ var payload = {
 smsglobal.sms.send(payload, function (error, response) {
     console.log(response);
 });
-
-
-
 ```
 ### To fetch a list outgoing sms
 
@@ -120,17 +116,17 @@ Run the tests:
 npm test
 ```
 
-
 To run test with code coverage report
 
 ```
 npm run mocha-only
 ```
 
-
 ## Following endpoints are covered
-* [sms](https://www.smsglobal.com/rest-api/#api-endpoints)
-* [sms-incoming](https://www.smsglobal.com/rest-api/#api-endpoints)
+* [sms](https://www.smsglobal.com/rest-api/?utm_source=dev&utm_medium=github&utm_campaign=node_sdk#api-endpoints)
+* [sms-incoming](https://www.smsglobal.com/rest-api/?utm_source=dev&utm_medium=github&utm_campaign=node_sdk#api-endpoints)
 
 # Reference
-[REST API Documentation](https://www.smsglobal.com/rest-api/)
+[REST API Documentation](https://www.smsglobal.com/rest-api/?utm_source=dev&utm_medium=github&utm_campaign=node_sdk)
+
+For any query [contact us](https://www.smsglobal.com/contact/?utm_source=dev&utm_medium=github&utm_campaign=node_sdk)
