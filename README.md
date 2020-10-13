@@ -3,7 +3,9 @@
 
 ![Build](https://github.com/smsglobal/smsglobal-node/workflows/Build/badge.svg?branch=master)
 [![codecov](https://codecov.io/gh/smsglobal/smsglobal-node/branch/master/graph/badge.svg)](https://codecov.io/gh/smsglobal/smsglobal-node)
-[![Sourcegraph](https://sourcegraph.com/github.com/smsglobal/smsglobal-node/-/badge.svg)](https://sourcegraph.com/github.com/smsglobal/smsglobal-node?badge)
+![Node](https://img.shields.io/node/v/smsglobal)
+![npm](https://img.shields.io/npm/v/smsglobal)
+[![Downloads](https://img.shields.io/npm/dm/smsglobal.svg)](https://www.npmjs.com/package/smsglobal)
 
 
 The SMSGlobal Node library provides convenient access to the SMSGlobal REST API from node applications.
