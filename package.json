@@ -1,9 +1,11 @@
 {
   "name": "smsglobal",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "SDK for SMSGlobal rest api",
   "homepage": "https://github.com/smsglobal/smsglobal-node#readme",
-  "bugs": "https://github.com/smsglobal/smsglobal-node/issues",
+  "bugs": {
+    "url": "https://github.com/smsglobal/smsglobal-node/issues"
+  },
   "keywords": [
     "smsglobal",
     "rest",
@@ -12,18 +14,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/smsglobal/smsglobal-node.git"
+    "url": "git+https://github.com/smsglobal/smsglobal-node.git"
   },
-  "author": {
-    "name": "Surinder Pal Singh",
-    "email": "surinderpal.singh@smsglobal.com"
-  },
+  "author": "Surinder Pal Singh <surinderpal.singh@smsglobal.com>",
   "main": "./lib",
   "scripts": {
     "test": "nyc mocha",
     "coverage": "nyc report --reporter=text-lcov > ccoverage.lcov",
     "mocha-only": "mocha --full-trace",
-    "lint": "./node_modules/.bin/eslint --fix lib/* test/*"
+    "lint": "eslint --fix lib/* test/*"
   },
   "license": "MIT",
   "dependencies": {
@@ -49,5 +48,10 @@
   },
   "engines": {
     "node": ">=9 <=14"
+  },
+  "directories": {
+    "example": "examples",
+    "lib": "lib",
+    "test": "test"
   }
 }
