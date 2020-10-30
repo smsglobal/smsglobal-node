@@ -39,6 +39,8 @@ const apiSecret = 'YOUR_API_SECRET';
 var smsglobal = require('smsglobal')(apiKey, secret);
 ```
 
+> All method return promise if no callback is given
+
 ### To send a sms
 ```
 var payload = {
@@ -108,7 +110,116 @@ promise
         console.log(error)
     });
 ```
-> All method returns promise if no callback is given
+
+
+### To send an OTP
+
+```
+var payload = {
+  origin: 'from number',
+  message: '{*code*} is your SMSGlobal verification code.',
+  destination: 'destination'
+};
+
+// {*code*} placeholder is mandatory and will be replaced by an auto generated numeric code.
+
+smsglobal.otp.send(payload, function(error, response) {
+  if (response) {
+    console.log(response);
+  }
+
+  if (error) {
+     console.log(error);
+  }
+});
+
+```
+
+
+### To cancel an OTP request
+
+```
+var id = 'otp-request-id';
+var promise = smsglobal.otp.cancel(id)
+
+promise.then((response) => {
+   console.log(response)
+}).catch((err) => {
+   console.log(error)
+});
+```
+
+### To verify an OTP code entered by your user
+
+```
+var id = 'otp-request-id';
+var code = 'otp-code';
+
+smsglobal.otp.verify(id, code, function(error, response) {
+  if (response) {
+    console.log(response);
+  }
+
+  if (error) {
+     console.log(error);
+  }
+});
+```
+
+### To fetch an OTP request
+
+```
+var id = 'otp-request-id';
+var promise = smsglobal.otp.get(id);
+
+promise
+    .then(function(response) {
+        console.log(response)
+    })
+    .catch(function(error){
+        console.log(error)
+    });
+
+```
+
+### To fetch a list of OTP requests
+
+The `getAll` method accepts two arguments first one is filter options and second one is a callback method. Both arguments are optional. Following exampels illustrate different ways of using it.
+
+
+#### *Filter optioins argument*
+```
+var options = { status: 'Verfied'};
+
+var promise = smsglobal.otp.getAll(options);
+
+promise
+    .then(function(response) {
+        console.log(response)
+    })
+    .catch(function(error){
+        console.log(error)
+    });
+```
+
+#### *Callback method arguments*
+
+```
+smsglobal.otp.getAll(function (error, response) {
+    console.log(response);
+});
+
+```
+#### *Filter options and callback method arguments*
+
+```
+var options = { status: 'Verfied'};
+
+smsglobal.otp.getAll(options, function (error, response) {
+    console.log(response);
+});
+```
+
 
 ## Running tests
 
@@ -127,6 +238,7 @@ npm run mocha-only
 ## Following endpoints are covered
 * [sms](https://www.smsglobal.com/rest-api/?utm_source=dev&utm_medium=github&utm_campaign=node_sdk#api-endpoints)
 * [sms-incoming](https://www.smsglobal.com/rest-api/?utm_source=dev&utm_medium=github&utm_campaign=node_sdk#api-endpoints)
+* [OTP](https://www.smsglobal.com/rest-api/?utm_source=dev&utm_medium=github&utm_campaign=node_sdk#api-endpoints)
 
 # Reference
 [REST API Documentation](https://www.smsglobal.com/rest-api/?utm_source=dev&utm_medium=github&utm_campaign=node_sdk)

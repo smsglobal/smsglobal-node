@@ -1,4 +1,5 @@
 const { expect } = require('chai');
+const errors = require('../lib/errors');
 
 describe('Smsglobal', () => {
 
@@ -9,7 +10,7 @@ describe('Smsglobal', () => {
 
   it('should fail if no api key or api secret are specified', () => {
     var Smsglobal = require('../lib');
-    expect(() => { new Smsglobal();}).to.throw('api key and secret are both required parameters.');
+    expect(() => { new Smsglobal();}).to.throw(errors.smsglobal);
   });
 
   it('should return smsglobal instahce with given key & secret', () => {
