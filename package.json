@@ -47,7 +47,7 @@
     "prettier": "^2.0.5"
   },
   "engines": {
-    "node": ">=9 <=14"
+    "node": ">=9"
   },
   "directories": {
     "example": "examples",
