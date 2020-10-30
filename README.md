@@ -1,9 +1,9 @@
 # SMSGlobal node SDK
 
 
-![Build](https://github.com/smsglobal/smsglobal-node/workflows/Build/badge.svg?branch=master)(https://www.npmjs.org/package/smsglobal)
-[![codecov](https://codecov.io/gh/smsglobal/smsglobal-node/branch/master/graph/badge.svg)(https://codecov.io/gh/smsglobal/smsglobal-node)
-![Node](https://img.shields.io/node/v/smsglobal)(https://www.npmjs.org/package/smsglobal)
+![Build](https://github.com/smsglobal/smsglobal-node/workflows/Build/badge.svg?branch=master)
+[![codecov](https://codecov.io/gh/smsglobal/smsglobal-node/branch/master/graph/badge.svg)](https://codecov.io/gh/smsglobal/smsglobal-node)
+![Node](https://img.shields.io/node/v/smsglobal)
 ![npm](https://img.shields.io/npm/v/smsglobal)
 [![Downloads](https://img.shields.io/npm/dm/smsglobal.svg)](https://www.npmjs.com/package/smsglobal)
 
