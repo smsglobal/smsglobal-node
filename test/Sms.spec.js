@@ -1,7 +1,7 @@
 const nock = require('nock');
 const config = require('../lib/config');
 const { assert, expect } = require('chai');
-
+const errors = require('../lib/errors');
 
 describe('Outgoing', () => {
   const uri = '/sms';
@@ -331,7 +331,7 @@ describe('Outgoing', () => {
       Smsglobal.sms.getAll(query).then(
         () =>  Promise.reject(new Error('Expected method to reject.')),
         (err) => {
-          assert.equal(err, 'offset and limit (defualt 20) total can not exceed 10000');
+          assert.equal(err, errors.searchOffsetLimit);
         },
       );
     });
@@ -347,7 +347,7 @@ describe('Outgoing', () => {
       Smsglobal.sms.getAll(query).then(
         () =>  Promise.reject(new Error('Expected method to reject.')),
         (err) => {
-          assert.equal(err, 'offset and limit (defualt 20) total can not exceed 10000');
+          assert.equal(err, errors.searchOffsetLimit);
         },
       );
     });
