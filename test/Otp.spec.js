@@ -215,6 +215,27 @@ describe('OTP', () => {
       });
     });
 
+    it('should should verify an OTP request with request id and promise', () => {
+      nock(config.host).post(`${uri}/requestid/${response.requestId}/validate`).reply(200, response);
+      Smsglobal.otp.verifyByRequestId(response.requestId, '32423').then(
+        (res) => {
+          assert.equal(res.statusCode, 200);
+          assert.deepEqual(res.data, response);
+        },
+        () => Promise.reject(new Error('Expected method to resolve.')),
+      );
+    });
+
+
+    it('should should verify an OTP request with destination number', () => {
+      nock(config.host).post(`${uri}/requestid/${response.destination}/validate`).reply(200, response);
+      Smsglobal.otp.verifyByDestination(response.destination, '32423', (err, res) => {
+        assert.equal(err, '');
+        assert.equal(res.statusCode, 200);
+        assert.deepEqual(res.data, response);
+      });
+    });
+
     it('should should verify an OTP request with destination number and promise', () => {
       nock(config.host).post(`${uri}/${response.destination}/validate`).reply(200, response);
       Smsglobal.otp.verifyByDestination(response.destination, '32423').then(
