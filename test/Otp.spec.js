@@ -214,7 +214,19 @@ describe('OTP', () => {
       });
     });
 
-    it('should fail when an OTP code doesn\'t matched', () => {
+    it('should fail when an OTP code doesn\'t matched with request Id', () => {
+      let errorResponse = { error: 'The input code does not match with the code sent to the user.'};
+
+      nock(config.host).post(`${uri}/requestid/${response.requestId}/validate`).reply(400, errorResponse);
+      Smsglobal.otp.verifyByDestination(response.destination, '32423').then(
+        () => Promise.reject(new Error('Expected method to reject.')),
+      ).catch((err) => {
+        assert.equal(err.statusCode, 400);
+        assert.deepEqual(err.data, errorResponse);
+      });
+    });
+
+    it('should fail when an OTP code doesn\'t matched with destination number', () => {
       let errorResponse = { error: 'The input code does not match with the code sent to the user.'};
 
       nock(config.host).post(`${uri}/${response.destination}/validate`).reply(400, errorResponse);
