@@ -144,7 +144,7 @@ describe('OTP', () => {
 
     it('should cancel an OTP with request ID', () => {
       nock(config.host).post(`${uri}/requestid/${response.requestId}/cancel`).reply(200, response);
-      Smsglobal.otp.cancelByRequestId(response.requestId,(err, res) => {
+      Smsglobal.otp.cancelByRequestId(response.requestId, (err, res) => {
         assert.equal(err, '');
         assert.equal(res.statusCode, 200);
         assert.deepEqual(res.data, response);
