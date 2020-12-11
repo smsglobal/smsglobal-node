@@ -3,11 +3,10 @@ const util = require('util');
 
 // To send an OTP request
 var payload = {
-  origin: 'NodeSdk',
+  origin: 'SMSGlobal',
   message: '{*code*} is your SMSGlobal verification code.',
-  destination: '61474950859',
+  destination: '61400000000',
   length: 4,
-
 };
 
 smsglobal.otp.send(payload, function(error, response) {
