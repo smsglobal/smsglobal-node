@@ -131,6 +131,17 @@ describe('OTP', () => {
     });
 
     it('should fail when an OTP not found with destination number & promise', () => {
+      nock(config.host).post(`${uri}/requestid/${response.requestId}/cancel`).reply(404);
+      Smsglobal.otp.cancelByRequestId(response.requestId).then(
+        () => Promise.reject(new Error('Expected method to reject.')),
+        (err) => {
+          assert.notEqual(err, '');
+          assert.equal(err.statusCode, 404);
+        },
+      );
+    });
+
+    it('should fail when an OTP not found with destination number & promise', () => {
       let destination = '61400000000';
       nock(config.host).post(`${uri}/${destination}/cancel`).reply(404);
       Smsglobal.otp.cancelByDestination(destination).then(
@@ -206,11 +217,11 @@ describe('OTP', () => {
 
     it('should fail when an OTP code is missimg with with promise', () => {
       nock(config.host).post(`${uri}/${response.destination}/validate`).reply(404);
-      Smsglobal.otp.verifyByDestination(response.destination).then(
+      Smsglobal.otp.verifyByDestination(response.destination, 3243).then(
         () => Promise.reject(new Error('Expected method to reject.')),
       ).catch((err) => {
         assert.notEqual(err, '');
-        assert.equal(err, errors.otp.code);
+        assert.equal(err, 'data.code should be string');
       });
     });
 
@@ -218,7 +229,7 @@ describe('OTP', () => {
       let errorResponse = { error: 'The input code does not match with the code sent to the user.'};
 
       nock(config.host).post(`${uri}/requestid/${response.requestId}/validate`).reply(400, errorResponse);
-      Smsglobal.otp.verifyByRequestId(response.destination, '32423').then(
+      Smsglobal.otp.verifyByRequestId(response.requestId, '32423').then(
         () => Promise.reject(new Error('Expected method to reject.')),
       ).catch((err) => {
         assert.equal(err.statusCode, 400);
@@ -260,7 +271,7 @@ describe('OTP', () => {
 
 
     it('should should verify an OTP request with destination number', () => {
-      nock(config.host).post(`${uri}/requestid/${response.destination}/validate`).reply(200, response);
+      nock(config.host).post(`${uri}/${response.destination}/validate`).reply(200, response);
       Smsglobal.otp.verifyByDestination(response.destination, '32423', (err, res) => {
         assert.equal(err, '');
         assert.equal(res.statusCode, 200);
