@@ -142,6 +142,15 @@ describe('OTP', () => {
       );
     });
 
+    it('should cancel an OTP with request ID', () => {
+      nock(config.host).post(`${uri}/requestid/${response.requestId}/cancel`).reply(200, response);
+      Smsglobal.otp.cancelByRequestId(response.requestId,(err, res) => {
+        assert.equal(err, '');
+        assert.equal(res.statusCode, 200);
+        assert.deepEqual(res.data, response);
+      });
+    });
+
     it('should cancel an OTP with request ID and promise', () => {
       nock(config.host).post(`${uri}/requestid/${response.requestId}/cancel`).reply(200, response);
       Smsglobal.otp.cancelByRequestId(response.requestId).then(
@@ -160,6 +169,17 @@ describe('OTP', () => {
         assert.equal(res.statusCode, 200);
         assert.deepEqual(res.data, response);
       });
+    });
+
+    it('should cancel an OTP with destination number and promise', () => {
+      nock(config.host).post(`${uri}/${response.destination}/cancel`).reply(200, response);
+      Smsglobal.otp.cancelByDestination(response.destination).then(
+        (res) => {
+          assert.equal(res.statusCode, 200);
+          assert.deepEqual(res.data, response);
+        },
+        () => Promise.reject(new Error('Expected method to resolve.')),
+      );
     });
   });
 
