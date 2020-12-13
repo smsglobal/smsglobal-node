@@ -142,7 +142,7 @@ smsglobal.otp.send(payload, function(error, response) {
   status: 'OK',
   data: {
     requestId: '404372541683676561917558',
-    destination: '61400000000'
+    destination: '61400000000',
     validUnitlTimestamp: '2020-11-18 17:08:14',
     createdTimestamp: '2020-11-18 16:58:14',
     lastEventTimestamp: '2020-11-18 16:58:14',
@@ -202,7 +202,7 @@ promise.then((response) => {
   status: 'OK',
   data: {
     requestId: '404372541683676561917558',
-    destination: '61400000000'
+    destination: '61400000000',
     validUnitlTimestamp: '2020-11-18 17:08:14',
     createdTimestamp: '2020-11-18 16:58:14',
     lastEventTimestamp: '2020-11-18 16:58:14',
@@ -253,7 +253,7 @@ smsglobal.otp.verifyByDestination(id, code, function(error, response) {
   status: 'OK',
   data: {
     requestId: '404372541683676561917558',
-    destination: '61400000000'
+    destination: '61400000000',
     validUnitlTimestamp: '2020-11-18 17:08:14',
     createdTimestamp: '2020-11-18 16:58:14',
     lastEventTimestamp: '2020-11-18 16:58:14',
