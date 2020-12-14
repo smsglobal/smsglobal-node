@@ -22,7 +22,7 @@ describe('Outgoing', () => {
       id: 6359736682344313,
       outgoing_id: 5211897953,
       origin: 'NodeSdk',
-      destination: '61474950859',
+      destination: '61400000000',
       message: 'Test sms from node sdk',
       status: 'sent',
       dateTime: '2020-07-30 13:23:38 +0000',
@@ -32,7 +32,7 @@ describe('Outgoing', () => {
         {
           outgoing_id: 5211920573,
           origin: 'NodeSdk',
-          destination: '61474950859',
+          destination: '61400000000',
           message: 'Test sms from node sdk',
           dateTime: '2020-07-30 14:29:50 +0000',
           status: 'Processing',
@@ -40,7 +40,7 @@ describe('Outgoing', () => {
         {
           outgoing_id: 5211920583,
           origin: 'NodeSdk',
-          destination: '61488265265',
+          destination: '61400000000',
           message: 'Test sms from node sdk',
           dateTime: '2020-07-30 14:29:50 +0000',
           status: 'Processing',
@@ -55,7 +55,7 @@ describe('Outgoing', () => {
       id: 6088544242604429,
       outgoing_id: 5252344293,
       origin: 'NodeSdk',
-      destination: '61474950859',
+      destination: '61400000000',
       message: 'Test sms from node sdk',
       status: 'delivered',
       dateTime: '2020-08-18 10:36:29 +1000',
@@ -69,7 +69,7 @@ describe('Outgoing', () => {
           id: 6088544242604429,
           outgoing_id: 5252344293,
           origin: 'NodeSdk',
-          destination: '61474950859',
+          destination: '61400000000',
           message: 'Test sms from node sdk',
           status: 'delivered',
           dateTime: '2020-08-18 10:36:29 +1000',
@@ -78,7 +78,7 @@ describe('Outgoing', () => {
           id: 6298870819574735,
           outgoing_id: 5252344303,
           origin: 'NodeSdk2',
-          destination: '61474950859',
+          destination: '61400000000',
           message: 'Test sms from node sdk',
           status: 'delivered',
           dateTime: '2020-08-18 10:36:29 +1000',
@@ -173,7 +173,7 @@ describe('Outgoing', () => {
         .send({
           origin: 'NodeSdk',
           message: 'Test sms from node sdk 2',
-          destination: '61474950859',
+          destination: '61400000000',
           scheduledDateTime: '2020-08-28 03:38:20',
         })
         .then((res) => {
@@ -192,7 +192,7 @@ describe('Outgoing', () => {
       Smsglobal.sms.send(
         {
           origin: 'NodeSdk',
-          destinations: ['0474950859', '0481260260'],
+          destinations: ['61400000000', '61400000001'],
           message: 'Test sms from node sdk 2',
         },
         function (err, res) {
@@ -213,12 +213,12 @@ describe('Outgoing', () => {
           messages: [
             {
               origin: 'NodeSdk',
-              destination: '0474950859',
+              destination: '61400000000',
               message: 'Test sms from node sdk 1',
             },
             {
               origin: 'NodeSdk',
-              destination: '0481260260',
+              destination: '61400000000',
               message: 'Test sms from node sdk 2',
             },
           ],

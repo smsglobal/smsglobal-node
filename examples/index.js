@@ -6,8 +6,8 @@ const util = require('util');
 
 // Send sms
 var payload = {
-  origin: 'NodeSdk',
-  scheduledDateTime: '0474950859',
+  origin: 'SMSGlobal',
+  destiantion: '61400000000',
   message: 'Test sms from node sdk',
 };
 

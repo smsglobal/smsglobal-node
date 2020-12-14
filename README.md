@@ -142,6 +142,7 @@ smsglobal.otp.send(payload, function(error, response) {
   status: 'OK',
   data: {
     requestId: '404372541683676561917558',
+    destination: '61400000000',
     validUnitlTimestamp: '2020-11-18 17:08:14',
     createdTimestamp: '2020-11-18 16:58:14',
     lastEventTimestamp: '2020-11-18 16:58:14',
@@ -170,10 +171,21 @@ smsglobal.otp.send(payload, function(error, response) {
 ```
 
 ### To cancel an OTP request
+The OTP request can be cancelled if it's not expired and verified yet. It can be done by either using `requestId` or `destination number`. The followings are examples of each method:
 
 ```js
 var id = 'otp-request-id'; // requestId received upon sending an OTP
-var promise = smsglobal.otp.cancel(id)
+var promise = smsglobal.otp.cancelByRequestId(id)
+
+promise.then((response) => {
+   console.log(response)
+}).catch((err) => {
+   console.log(error)
+});
+```
+```js
+var destination = 'destination-number';
+var promise = smsglobal.otp.cancelByDestination(id)
 
 promise.then((response) => {
    console.log(response)
@@ -182,13 +194,32 @@ promise.then((response) => {
 });
 ```
 
+*Success response object*
+
+```js
+{
+  statusCode: 200,
+  status: 'OK',
+  data: {
+    requestId: '404372541683676561917558',
+    destination: '61400000000',
+    validUnitlTimestamp: '2020-11-18 17:08:14',
+    createdTimestamp: '2020-11-18 16:58:14',
+    lastEventTimestamp: '2020-11-18 16:58:14',
+    status: 'Cancelled'
+  }
+}
+```
+
 ### To verify an OTP code entered by your user
+
+The OTP code entered by your user can be verified by either using `requestId` or `destination number`. The followings are examples of each method:
 
 ```js
 var id = 'otp-request-id'; // requestId received upon sending an OTP
 var code = 'otp-code'; // input code entered by your user
 
-smsglobal.otp.verify(id, code, function(error, response) {
+smsglobal.otp.verifyByRequestId(id, code, function(error, response) {
   if (response) {
     console.log(response);
   }
@@ -199,59 +230,36 @@ smsglobal.otp.verify(id, code, function(error, response) {
 });
 ```
 
-### To fetch an OTP request
-
 ```js
-var id = 'otp-request-id'; // requestId received upon sending an OTP
-var promise = smsglobal.otp.get(id);
+var destination = 'destination-number';
+var code = 'otp-code'; // input code entered by your user
 
-promise
-    .then(function(response) {
-        console.log(response)
-    })
-    .catch(function(error){
-        console.log(error)
-    });
-
-```
-
-### To fetch a list of OTP requests
-
-The `getAll` method accepts two arguments first one is filter options and second one is a callback method. Both arguments are optional. Following exampels illustrate different ways of using it.
-
-
-*Filter options argument*
-
-```js
-var options = { status: 'Verfied'};
-
-var promise = smsglobal.otp.getAll(options);
-
-promise
-    .then(function(response) {
-        console.log(response)
-    })
-    .catch(function(error){
-        console.log(error)
-    });
-```
-
-#### *Callback method arguments*
-
-```js
-smsglobal.otp.getAll(function (error, response) {
+smsglobal.otp.verifyByDestination(id, code, function(error, response) {
+  if (response) {
     console.log(response);
+  }
+
+  if (error) {
+     console.log(error);
+  }
 });
-
 ```
-#### *Filter options and callback method arguments*
 
-```
-var options = { status: 'Verfied'};
+*Success response object*
 
-smsglobal.otp.getAll(options, function (error, response) {
-    console.log(response);
-});
+```js
+{
+  statusCode: 200,
+  status: 'OK',
+  data: {
+    requestId: '404372541683676561917558',
+    destination: '61400000000',
+    validUnitlTimestamp: '2020-11-18 17:08:14',
+    createdTimestamp: '2020-11-18 16:58:14',
+    lastEventTimestamp: '2020-11-18 16:58:14',
+    status: 'Verified'
+  }
+}
 ```
 
 

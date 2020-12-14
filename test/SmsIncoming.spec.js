@@ -21,9 +21,9 @@ describe('Incoming', () => {
 
     let incomingSmsResponse = {
       id: 465605611,
-      origin: '61488265265',
-      destination: '61488265265',
-      message: 'Test sms from SP',
+      origin: '61400000001',
+      destination: '61400000000',
+      message: 'Test sms from SMSGlobal',
       dateTime: '2020-08-04 11:24:27 +1000',
       isMultipart: false,
     };
@@ -92,14 +92,14 @@ describe('Incoming', () => {
       limit: 10,
       messages: [
         {
-          origin: '18889957055',
-          destination: '18667386744',
+          origin: '61400000000',
+          destination: '61400000001',
           dateTime: '2020-08-05 11:04:04 +1000',
           isMultipart: false,
         },
         {
-          origin: '61488265265',
-          destination: '61488265265',
+          origin: '61400000000',
+          destination: '61400000002',
           dateTime: '2020-08-04 15:56:05 +1000',
           isMultipart: false,
         }],

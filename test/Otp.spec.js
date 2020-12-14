@@ -76,6 +76,7 @@ describe('OTP', () => {
     it('should send an OTP message to the provided destination with promise', () => {
       let response = {
         requestId: '404372541681858603038893',
+        destination: '61400000000',
         validUnitlTimestamp: '2020-10-29 15:24:33',
         createdTimestamp: '2020-10-29 15:22:33',
         lastEventTimestamp: '2020-10-29 15:22:33',
@@ -97,10 +98,19 @@ describe('OTP', () => {
 
   describe('cancel', () => {
 
+    let response = {
+      requestId: '404372541681858603038893',
+      destination: '61400000000',
+      validUnitlTimestamp: '2020-10-29 15:24:33',
+      createdTimestamp: '2020-10-29 15:22:33',
+      lastEventTimestamp: '2020-10-29 15:22:33',
+      status: 'Cancelled',
+    };
+
     it('should fail when id is not string', () => {
       let id = null;
-      nock(config.host).put(`${uri}/${id}/cancel`).reply(404);
-      Smsglobal.otp.cancel(id, (err, res) => {
+      nock(config.host).post(`${uri}/requestid/${id}/cancel`).reply(404);
+      Smsglobal.otp.cancelByRequestId(id, (err, res) => {
         assert.notEqual(err, '');
         assert.equal(err, errors.otp.id);
         expect(res).to.be.undefined;
@@ -108,22 +118,21 @@ describe('OTP', () => {
     });
 
     it('should fail when id is not string with promise', () => {
-      let id = 532523423;
-      nock(config.host).put(`${uri}/${id}/cancel`).reply(404);
-      Smsglobal.otp.cancel(id).then(
+      let destination = 6140000000;
+      nock(config.host).post(`${uri}/${destination}/cancel`).reply(404);
+      Smsglobal.otp.cancelByDestination(destination).then(
         () => Promise.reject(new Error('Expected method to reject.')),
         (err, res) => {
           assert.notEqual(err, '');
-          assert.equal(err, errors.otp.id);
+          assert.equal(err, errors.otp.destination);
           expect(res).to.be.undefined;
         },
       );
     });
 
-    it('should fail when an OTP request not found with promise', () => {
-      let id = '5325234233245234';
-      nock(config.host).put(`${uri}/${id}/cancel`).reply(404);
-      Smsglobal.otp.cancel(id).then(
+    it('should fail when an OTP not found with destination number & promise', () => {
+      nock(config.host).post(`${uri}/requestid/${response.requestId}/cancel`).reply(404);
+      Smsglobal.otp.cancelByRequestId(response.requestId).then(
         () => Promise.reject(new Error('Expected method to reject.')),
         (err) => {
           assert.notEqual(err, '');
@@ -132,27 +141,53 @@ describe('OTP', () => {
       );
     });
 
-    it('should fail if an OTP request is already cancelled, expired or verified with promise', () => {
-      let id = '5325234233245234';
-      let response = { error: 'The input code has already been cancelled.'};
-
-      nock(config.host).put(`${uri}/${id}/cancel`).reply(409, response);
-
-      Smsglobal.otp.cancel(id).then(
+    it('should fail when an OTP not found with destination number & promise', () => {
+      let destination = '61400000000';
+      nock(config.host).post(`${uri}/${destination}/cancel`).reply(404);
+      Smsglobal.otp.cancelByDestination(destination).then(
         () => Promise.reject(new Error('Expected method to reject.')),
-      ).catch((err) => {
-        assert.notEqual(err, '');
-        assert.equal(err.statusCode, 409);
-        assert.deepEqual(err.data, response);
+        (err) => {
+          assert.notEqual(err, '');
+          assert.equal(err.statusCode, 404);
+        },
+      );
+    });
+
+    it('should cancel an OTP with request ID', () => {
+      nock(config.host).post(`${uri}/requestid/${response.requestId}/cancel`).reply(200, response);
+      Smsglobal.otp.cancelByRequestId(response.requestId, (err, res) => {
+        assert.equal(err, '');
+        assert.equal(res.statusCode, 200);
+        assert.deepEqual(res.data, response);
       });
     });
 
-    it('should cancel an OTP request with with promise', () => {
-      let id = '5325234233245234';
-      nock(config.host).put(`${uri}/${id}/cancel`).reply(204);
-      Smsglobal.otp.cancel(id).then(
+    it('should cancel an OTP with request ID and promise', () => {
+      nock(config.host).post(`${uri}/requestid/${response.requestId}/cancel`).reply(200, response);
+      Smsglobal.otp.cancelByRequestId(response.requestId).then(
         (res) => {
-          assert.equal(res.statusCode, 204);
+          assert.equal(res.statusCode, 200);
+          assert.deepEqual(res.data, response);
+        },
+        () => Promise.reject(new Error('Expected method to resolve.')),
+      );
+    });
+
+    it('should cancel an OTP with destination number', () => {
+      nock(config.host).post(`${uri}/${response.destination}/cancel`).reply(200, response);
+      Smsglobal.otp.cancelByDestination(response.destination, (err, res) => {
+        assert.equal(err, '');
+        assert.equal(res.statusCode, 200);
+        assert.deepEqual(res.data, response);
+      });
+    });
+
+    it('should cancel an OTP with destination number and promise', () => {
+      nock(config.host).post(`${uri}/${response.destination}/cancel`).reply(200, response);
+      Smsglobal.otp.cancelByDestination(response.destination).then(
+        (res) => {
+          assert.equal(res.statusCode, 200);
+          assert.deepEqual(res.data, response);
         },
         () => Promise.reject(new Error('Expected method to resolve.')),
       );
@@ -161,10 +196,19 @@ describe('OTP', () => {
 
   describe('verify', () => {
 
+    let response = {
+      requestId: '404372541681858603038893',
+      destination: '61400000000',
+      validUnitlTimestamp: '2020-10-29 15:24:33',
+      createdTimestamp: '2020-10-29 15:22:33',
+      lastEventTimestamp: '2020-10-29 15:22:33',
+      status: 'Verified',
+    };
+
     it('should fail when id and code is not string', () => {
       let id = null;
-      nock(config.host).post(`${uri}/${id}`).reply(404);
-      Smsglobal.otp.verify(id, 43545, (err, res) => {
+      nock(config.host).post(`${uri}/requestid/${id}/validate`).reply(404);
+      Smsglobal.otp.verifyByRequestId(id, 43545, (err, res) => {
         assert.notEqual(err, '');
         assert.equal(err, 'data.id should be string, data.code should be string');
         expect(res).to.be.undefined;
@@ -172,234 +216,72 @@ describe('OTP', () => {
     });
 
     it('should fail when an OTP code is missimg with with promise', () => {
-      let id = '5325234233245234';
-      nock(config.host).post(`${uri}/${id}`).reply(404);
-      Smsglobal.otp.verify(id).then(
+      nock(config.host).post(`${uri}/${response.destination}/validate`).reply(404);
+      Smsglobal.otp.verifyByDestination(response.destination, 3243).then(
         () => Promise.reject(new Error('Expected method to reject.')),
       ).catch((err) => {
         assert.notEqual(err, '');
-        assert.equal(err, errors.otp.code);
+        assert.equal(err, 'data.code should be string');
       });
     });
 
-    it('should fail when an OTP code doesn\'t matched', () => {
-      let id = '5325234233245234';
-      let response = { error: 'The input code does not match with the code sent to the user.'};
+    it('should fail when an OTP code doesn\'t matched with request Id', () => {
+      let errorResponse = { error: 'The input code does not match with the code sent to the user.'};
 
-      nock(config.host).post(`${uri}/${id}`).reply(400,
-        response);
-      Smsglobal.otp.verify(id, '32423').then(
+      nock(config.host).post(`${uri}/requestid/${response.requestId}/validate`).reply(400, errorResponse);
+      Smsglobal.otp.verifyByRequestId(response.requestId, '32423').then(
         () => Promise.reject(new Error('Expected method to reject.')),
       ).catch((err) => {
         assert.equal(err.statusCode, 400);
-        assert.deepEqual(err.data, response);
+        assert.deepEqual(err.data, errorResponse);
       });
     });
 
-    it('should fail when an OTP code has been expired', () => {
-      let id = '5325234233245234';
-      let response = { error: 'The input code has been expired.'};
+    it('should fail when an OTP code doesn\'t matched with destination number', () => {
+      let errorResponse = { error: 'The input code does not match with the code sent to the user.'};
 
-      nock(config.host).post(`${uri}/${id}`).reply(400,
-        response);
-      Smsglobal.otp.verify(id, '32423').then(
+      nock(config.host).post(`${uri}/${response.destination}/validate`).reply(400, errorResponse);
+      Smsglobal.otp.verifyByDestination(response.destination, '32423').then(
         () => Promise.reject(new Error('Expected method to reject.')),
       ).catch((err) => {
         assert.equal(err.statusCode, 400);
-        assert.deepEqual(err.data, response);
+        assert.deepEqual(err.data, errorResponse);
       });
     });
 
-    it('should fail if an OTP request is already cancelled, expired or verified with promise', () => {
-      let id = '5325234233245234';
-      let response = { error: 'The input code has already been cancelled.'};
-
-      nock(config.host).post(`${uri}/${id}`).reply(409, response);
-      Smsglobal.otp.verify(id, '32423').then(
-        () => Promise.reject(new Error('Expected method to reject.')),
-      ).catch((err) => {
-        assert.notEqual(err, '');
-        assert.equal(err.statusCode, 409);
-        assert.deepEqual(err.data, response);
+    it('should should verify an OTP request with request id', () => {
+      nock(config.host).post(`${uri}/requestid/${response.requestId}/validate`).reply(200, response);
+      Smsglobal.otp.verifyByRequestId(response.requestId, '32423', (err, res) => {
+        assert.equal(err, '');
+        assert.equal(res.statusCode, 200);
+        assert.deepEqual(res.data, response);
       });
     });
 
-
-    it('should should verify an OTP request', () => {
-      let id = '5325234233245234';
-      nock(config.host).post(`${uri}/${id}`).reply(204);
-      Smsglobal.otp.verify(id, '32423').then(
-        (res) => {
-          assert.equal(res.statusCode, 204);
-        },
-        () => Promise.reject(new Error('Expected method to resolve.')),
-      );
-    });
-
-  });
-
-  describe('get', () => {
-
-    it('should fail when id is not string', () => {
-      let id = null;
-      nock(config.host).get(`${uri}/${id}`).reply(404);
-      Smsglobal.otp.get(id, (err, res) => {
-        assert.notEqual(err, '');
-        assert.equal(err, errors.otp.id);
-        expect(res).to.be.undefined;
-      });
-    });
-
-    it('should fail when id is not string with promise', () => {
-      let id = 532523423;
-      nock(config.host).get(`${uri}/${id}`).reply(404);
-      Smsglobal.otp.get(id).then(
-        () => Promise.reject(new Error('Expected method to reject.')),
-        (err, res) => {
-          assert.notEqual(err, '');
-          assert.equal(err, errors.otp.id);
-          expect(res).to.be.undefined;
-        },
-      );
-    });
-
-    it('should fail when an OTP request not found with promise', () => {
-      let id = '5325234233245234';
-      nock(config.host).get(`${uri}/${id}`).reply(404);
-      Smsglobal.otp.get(id).then(
-        () => Promise.reject(new Error('Expected method to reject.')),
-        (err) => {
-          assert.notEqual(err, '');
-          assert.equal(err.statusCode, 404);
-        },
-      );
-    });
-
-    it('should fetch an OTP request as an object', () => {
-      let OTPResponse = {
-        requestId: '404372541681206744638349',
-        validUnitlTimestamp: '2020-10-22 10:51:32',
-        createdTimestamp: '2020-10-22 10:41:32',
-        lastEventTimestamp: '2020-10-22 10:41:33',
-        status: 'Sent',
-      };
-      nock(config.host)
-        .get(`${uri}/${OTPResponse.requestId}`)
-        .reply(200, OTPResponse);
-
-      Smsglobal.otp.get(OTPResponse.requestId).then(
+    it('should should verify an OTP request with request id and promise', () => {
+      nock(config.host).post(`${uri}/requestid/${response.requestId}/validate`).reply(200, response);
+      Smsglobal.otp.verifyByRequestId(response.requestId, '32423').then(
         (res) => {
           assert.equal(res.statusCode, 200);
-          assert.deepEqual(res.data, OTPResponse);
+          assert.deepEqual(res.data, response);
         },
         () => Promise.reject(new Error('Expected method to resolve.')),
       );
     });
-  });
-
-  describe('getAll', () => {
-
-    let response = {
-      total: 2,
-      offset: 1,
-      limit: 20,
-      OTPS: [
-        {
-          requestId: '404372541681858603038893',
-          validUnitlTimestamp: '2020-10-29 15:24:33',
-          createdTimestamp: '2020-10-29 15:22:33',
-          lastEventTimestamp: '2020-10-29 15:33:28',
-          status: 'Verified',
-        },
-        {
-          requestId: '404372541681752148467848',
-          validUnitlTimestamp: '2020-10-28 11:12:30',
-          createdTimestamp: '2020-10-28 11:10:30',
-          lastEventTimestamp: '2020-10-28 11:10:55',
-          status: 'Verified',
-        },
-      ],
-    };
-
-    it('should fail when invalid search data is given with promise', () => {
-      let query = { limit: 1200, status: 34234, startDate: '3524' };
-      nock(config.host)
-        .get(uri)
-        .query(query)
-        .reply(200, response);
-
-      Smsglobal.otp.getAll(query).then(
-        () =>  Promise.reject(new Error('Expected method to reject.')),
-        (err) => {
-          assert.equal(err, 'data.limit should be <= 1000, data.status should be string, data.startDate shoud be a valid date time string (yyyy-MM-dd HH:mm:ss)');
-        },
-      );
-    });
 
 
-    it('should fail when total of offset & limit is greater than 10,000', () => {
-      // default limit is 20
-      let query = { offset: 10000};
-      nock(config.host)
-        .get(uri)
-        .query(query)
-        .reply(200, response);
-
-      Smsglobal.otp.getAll(query).then(
-        () =>  Promise.reject(new Error('Expected method to reject.')),
-        (err) => {
-          assert.equal(err, errors.searchOffsetLimit);
-        },
-      );
-    });
-
-    it('should fail in the case of 404 with promise', () => {
-      // default limit is 20
-      let query = { offset: 20};
-      nock(config.host)
-        .get(uri)
-        .query(query)
-        .reply(404);
-
-      Smsglobal.otp.getAll(query).then(
-        () =>  Promise.reject(new Error('Expected method to reject.')),
-        (err) => { assert.equal(err.statusCode, 404);},
-      );
-    });
-
-    it('should load otp lsit with filter options', () => {
-
-      let query = { status: 'Verified'};
-      nock(config.host)
-        .get(uri)
-        .query(query)
-        .reply(200, response);
-
-      Smsglobal.otp.getAll(query, (err, res) => {
+    it('should should verify an OTP request with destination number', () => {
+      nock(config.host).post(`${uri}/${response.destination}/validate`).reply(200, response);
+      Smsglobal.otp.verifyByDestination(response.destination, '32423', (err, res) => {
+        assert.equal(err, '');
         assert.equal(res.statusCode, 200);
         assert.deepEqual(res.data, response);
       });
-
     });
 
-    it('should load otp list with as array when callback is only given argument', () => {
-      nock(config.host)
-        .get(uri)
-        .reply(200, response);
-
-      Smsglobal.otp.getAll((err, res) => {
-        assert.equal(res.statusCode, 200);
-        assert.deepEqual(res.data, response);
-      });
-
-    });
-
-    it('should load all OTP list with as an array of object with promise', () => {
-
-      nock(config.host)
-        .get(uri)
-        .reply(200, response);
-      Smsglobal.otp.getAll().then(
+    it('should should verify an OTP request with destination number and promise', () => {
+      nock(config.host).post(`${uri}/${response.destination}/validate`).reply(200, response);
+      Smsglobal.otp.verifyByDestination(response.destination, '32423').then(
         (res) => {
           assert.equal(res.statusCode, 200);
           assert.deepEqual(res.data, response);
