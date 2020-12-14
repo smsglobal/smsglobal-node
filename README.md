@@ -277,10 +277,10 @@ To run test with code coverage report
 npm run mocha-only
 ```
 
-## Following endpoints are covered
-* [sms](https://www.smsglobal.com/rest-api/?utm_source=dev&utm_medium=github&utm_campaign=node_sdk#api-endpoints)
-* [sms-incoming](https://www.smsglobal.com/rest-api/?utm_source=dev&utm_medium=github&utm_campaign=node_sdk#api-endpoints)
-* [OTP](https://www.smsglobal.com/rest-api/?utm_source=dev&utm_medium=github&utm_campaign=node_sdk#api-endpoints)
+## Available REST API Resources
+* Sms
+* Sms Incoming
+* OTP (beta)
 
 # Reference
 [REST API Documentation](https://www.smsglobal.com/rest-api/?utm_source=dev&utm_medium=github&utm_campaign=node_sdk)
