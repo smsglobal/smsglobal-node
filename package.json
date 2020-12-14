@@ -1,6 +1,6 @@
 {
   "name": "smsglobal",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "SDK for SMSGlobal rest api",
   "homepage": "https://github.com/smsglobal/smsglobal-node#readme",
   "bugs": {
