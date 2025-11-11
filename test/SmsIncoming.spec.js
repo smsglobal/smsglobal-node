@@ -18,13 +18,12 @@ describe('Incoming', () => {
   afterEach(nock.cleanAll);
 
   describe('get', () => {
-
     let incomingSmsResponse = {
       id: 465605611,
       origin: '61400000001',
       destination: '61400000000',
       message: 'Test sms from SMSGlobal',
-      dateTime: '2020-08-04 11:24:27 +1000',
+      dateTime: '2025-08-04 11:24:27 +1000',
       isMultipart: false,
     };
 
@@ -85,7 +84,6 @@ describe('Incoming', () => {
   });
 
   describe('getAll', () => {
-
     let getAllSmsResponse =  {
       total: 173,
       offset: 1,
@@ -94,17 +92,16 @@ describe('Incoming', () => {
         {
           origin: '61400000000',
           destination: '61400000001',
-          dateTime: '2020-08-05 11:04:04 +1000',
+          dateTime: '2025-08-05 11:04:04 +1000',
           isMultipart: false,
         },
         {
           origin: '61400000000',
           destination: '61400000002',
-          dateTime: '2020-08-04 15:56:05 +1000',
+          dateTime: '2025-08-04 15:56:05 +1000',
           isMultipart: false,
         }],
     };
-
 
     it('should fail when invalid search data is given with promise', () => {
       let query = { limit: 1200, destination: '33' };
@@ -150,8 +147,7 @@ describe('Incoming', () => {
       );
     });
 
-
-    it('should load outgoing sms list with as array when callback is only given argument', () => {
+    it('should load outgoing sms list as array when callback is only given argument', () => {
       nock(config.host)
         .get(uri)
         .reply(200, getAllSmsResponse);
@@ -165,8 +161,7 @@ describe('Incoming', () => {
       });
     });
 
-
-    it('should load sms list with as array of object with promise', () => {
+    it('should load sms list as array of object with promise', () => {
       let query = { limit: 2 };
       nock(config.host)
         .get(uri)
@@ -227,6 +222,5 @@ describe('Incoming', () => {
         () => Promise.reject(new Error('Expected method to resolve.')),
       );
     });
-
   });
 });
