@@ -2,7 +2,7 @@ const smsglobal = require('smsglobal')();
 const util = require('util');
 
 // To send an OTP request
-var payload = {
+const payload = {
   origin: 'SMSGlobal',
   message: '{*code*} is your SMSGlobal verification code.',
   destination: '61400000000',

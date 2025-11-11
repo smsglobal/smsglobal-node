@@ -77,9 +77,9 @@ describe('OTP', () => {
       let response = {
         requestId: '404372541681858603038893',
         destination: '61400000000',
-        validUnitlTimestamp: '2020-10-29 15:24:33',
-        createdTimestamp: '2020-10-29 15:22:33',
-        lastEventTimestamp: '2020-10-29 15:22:33',
+        validUnitlTimestamp: '2025-10-29 15:24:33',
+        createdTimestamp: '2025-10-29 15:22:33',
+        lastEventTimestamp: '2025-10-29 15:22:33',
         status: 'Sent',
       };
       nock(config.host)
@@ -97,13 +97,12 @@ describe('OTP', () => {
   });
 
   describe('cancel', () => {
-
     let response = {
       requestId: '404372541681858603038893',
       destination: '61400000000',
-      validUnitlTimestamp: '2020-10-29 15:24:33',
-      createdTimestamp: '2020-10-29 15:22:33',
-      lastEventTimestamp: '2020-10-29 15:22:33',
+      validUnitlTimestamp: '2025-10-29 15:24:33',
+      createdTimestamp: '2025-10-29 15:22:33',
+      lastEventTimestamp: '2025-10-29 15:22:33',
       status: 'Cancelled',
     };
 
@@ -195,13 +194,12 @@ describe('OTP', () => {
   });
 
   describe('verify', () => {
-
     let response = {
       requestId: '404372541681858603038893',
       destination: '61400000000',
-      validUnitlTimestamp: '2020-10-29 15:24:33',
-      createdTimestamp: '2020-10-29 15:22:33',
-      lastEventTimestamp: '2020-10-29 15:22:33',
+      validUnitlTimestamp: '2025-10-29 15:24:33',
+      createdTimestamp: '2025-10-29 15:22:33',
+      lastEventTimestamp: '2025-10-29 15:22:33',
       status: 'Verified',
     };
 
@@ -269,7 +267,6 @@ describe('OTP', () => {
       );
     });
 
-
     it('should should verify an OTP request with destination number', () => {
       nock(config.host).post(`${uri}/${response.destination}/validate`).reply(200, response);
       Smsglobal.otp.verifyByDestination(response.destination, '32423', (err, res) => {
@@ -289,6 +286,5 @@ describe('OTP', () => {
         () => Promise.reject(new Error('Expected method to resolve.')),
       );
     });
-
   });
 });

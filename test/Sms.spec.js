@@ -17,7 +17,7 @@ describe('Outgoing', () => {
 
   afterEach(nock.cleanAll);
 
-  const apiOutgingResponses = {
+  const apiOutgoingResponses = {
     singleDestination: {
       id: 6359736682344313,
       outgoing_id: 5211897953,
@@ -25,7 +25,7 @@ describe('Outgoing', () => {
       destination: '61400000000',
       message: 'Test sms from node sdk',
       status: 'sent',
-      dateTime: '2020-07-30 13:23:38 +0000',
+      dateTime: '2025-07-30 13:23:38 +0000',
     },
     multipleDestinations: {
       messages: [
@@ -34,7 +34,7 @@ describe('Outgoing', () => {
           origin: 'NodeSdk',
           destination: '61400000000',
           message: 'Test sms from node sdk',
-          dateTime: '2020-07-30 14:29:50 +0000',
+          dateTime: '2025-07-30 14:29:50 +0000',
           status: 'Processing',
         },
         {
@@ -42,12 +42,12 @@ describe('Outgoing', () => {
           origin: 'NodeSdk',
           destination: '61400000000',
           message: 'Test sms from node sdk',
-          dateTime: '2020-07-30 14:29:50 +0000',
+          dateTime: '2025-07-30 14:29:50 +0000',
           status: 'Processing',
         },
       ],
     },
-    incompleteMesssage: {
+    incompleteMessage: {
       status: 'OK',
       data: { messages: [] },
     },
@@ -58,7 +58,7 @@ describe('Outgoing', () => {
       destination: '61400000000',
       message: 'Test sms from node sdk',
       status: 'delivered',
-      dateTime: '2020-08-18 10:36:29 +1000',
+      dateTime: '2025-08-18 10:36:29 +1000',
     },
     fetchAllSms: {
       total: 4165,
@@ -72,7 +72,7 @@ describe('Outgoing', () => {
           destination: '61400000000',
           message: 'Test sms from node sdk',
           status: 'delivered',
-          dateTime: '2020-08-18 10:36:29 +1000',
+          dateTime: '2025-08-18 10:36:29 +1000',
         },
         {
           id: 6298870819574735,
@@ -81,7 +81,7 @@ describe('Outgoing', () => {
           destination: '61400000000',
           message: 'Test sms from node sdk',
           status: 'delivered',
-          dateTime: '2020-08-18 10:36:29 +1000',
+          dateTime: '2025-08-18 10:36:29 +1000',
         },
       ],
     },
@@ -158,7 +158,7 @@ describe('Outgoing', () => {
       Smsglobal.sms.send({ messages: [{}]}).then(
         (res) => {
           assert.equal(res.statusCode, 200);
-          assert.deepEqual(res.data, apiOutgingResponses.incompleteMesssage);
+          assert.deepEqual(res.data, apiOutgoingResponses.incompleteMessage);
         },
         () => Promise.reject(new Error('Expected method to resolve.')),
       );
@@ -167,18 +167,18 @@ describe('Outgoing', () => {
     it('should send a sms to single destination with promises', () => {
       nock(config.host)
         .post(uri)
-        .reply(200, apiOutgingResponses.singleDestination);
+        .reply(200, apiOutgoingResponses.singleDestination);
 
       Smsglobal.sms
         .send({
           origin: 'NodeSdk',
           message: 'Test sms from node sdk 2',
           destination: '61400000000',
-          scheduledDateTime: '2020-08-28 03:38:20',
+          scheduledDateTime: '2025-08-28 03:38:20',
         })
         .then((res) => {
           assert.equal(res.statusCode, 200);
-          assert.deepEqual(res.data, apiOutgingResponses.singleDestination);
+          assert.deepEqual(res.data, apiOutgoingResponses.singleDestination);
         }, () =>
           Promise.reject(new Error('Expected method to resolve.')),
         );
@@ -187,7 +187,7 @@ describe('Outgoing', () => {
     it('should send a sms to multiple destinations', () => {
       nock(config.host)
         .post(uri)
-        .reply(200, apiOutgingResponses.multipleDestinations);
+        .reply(200, apiOutgoingResponses.multipleDestinations);
 
       Smsglobal.sms.send(
         {
@@ -198,7 +198,7 @@ describe('Outgoing', () => {
         function (err, res) {
           assert.equal(err, '');
           assert.equal(res.statusCode, 200);
-          assert.deepEqual(res.data, apiOutgingResponses.multipleDestinations);
+          assert.deepEqual(res.data, apiOutgoingResponses.multipleDestinations);
         },
       );
     });
@@ -206,7 +206,7 @@ describe('Outgoing', () => {
     it('should send mulitple sms as an array', () => {
       nock(config.host)
         .post(uri)
-        .reply(200, apiOutgingResponses.multipleDestinations);
+        .reply(200, apiOutgoingResponses.multipleDestinations);
 
       Smsglobal.sms.send(
         {
@@ -226,7 +226,7 @@ describe('Outgoing', () => {
         function (err, res) {
           assert.equal(err, '');
           assert.equal(res.statusCode, 200);
-          assert.deepEqual(res.data, apiOutgingResponses.multipleDestinations);
+          assert.deepEqual(res.data, apiOutgoingResponses.multipleDestinations);
         },
       );
     });
@@ -255,12 +255,11 @@ describe('Outgoing', () => {
       );
     });
 
-
     it('should fail when id not given with promise', () => {
-      let id = apiOutgingResponses.fetchSingleSms.id;
+      let id = apiOutgoingResponses.fetchSingleSms.id;
       nock(config.host)
         .get(`${uri}/${id}`)
-        .reply(200, apiOutgingResponses.fetchSingleSms);
+        .reply(200, apiOutgoingResponses.fetchSingleSms);
 
       Smsglobal.sms.get().then(
         () => Promise.reject(new Error('Expected method to reject.')),
@@ -272,35 +271,33 @@ describe('Outgoing', () => {
     });
 
     it('should fetch single sms as an object', () => {
-      let id = apiOutgingResponses.fetchSingleSms.id;
+      let id = apiOutgoingResponses.fetchSingleSms.id;
       nock(config.host)
         .get(`${uri}/${id}`)
-        .reply(200, apiOutgingResponses.fetchSingleSms);
+        .reply(200, apiOutgoingResponses.fetchSingleSms);
 
       Smsglobal.sms.get(id).then(
         (res) => {
           assert.equal(res.statusCode, 200);
-          assert.deepEqual(res.data, apiOutgingResponses.fetchSingleSms);
+          assert.deepEqual(res.data, apiOutgoingResponses.fetchSingleSms);
         },
         () => Promise.reject(new Error('Expected method to resolve.')),
       );
     });
   });
 
-
   describe('getAll', () => {
-
     it('should load outgoing sms list with as array when callback is only given argument', () => {
       nock(config.host)
         .get('/sms')
-        .reply(200, apiOutgingResponses.fetchAllSms);
+        .reply(200, apiOutgoingResponses.fetchAllSms);
 
       Smsglobal.sms.getAll((err, res) => {
         assert.equal(err, '');
         assert.equal(res.statusCode, 200);
         assert.deepEqual(
           res.data,
-          apiOutgingResponses.fetchAllSms,
+          apiOutgoingResponses.fetchAllSms,
         );
       });
     });
@@ -310,7 +307,7 @@ describe('Outgoing', () => {
       nock(config.host)
         .get('/sms')
         .query(query)
-        .reply(200, apiOutgingResponses.fetchAllSms);
+        .reply(200, apiOutgoingResponses.fetchAllSms);
 
       Smsglobal.sms.getAll(query).then(
         () => Promise.reject(new Error('Expected method to reject.')),
@@ -326,7 +323,7 @@ describe('Outgoing', () => {
       nock(config.host)
         .get('/sms')
         .query(query)
-        .reply(200, apiOutgingResponses.fetchAllSms);
+        .reply(200, apiOutgoingResponses.fetchAllSms);
 
       Smsglobal.sms.getAll(query).then(
         () =>  Promise.reject(new Error('Expected method to reject.')),
@@ -342,7 +339,7 @@ describe('Outgoing', () => {
       nock(config.host)
         .get('/sms')
         .query(query)
-        .reply(200, apiOutgingResponses.fetchAllSms);
+        .reply(200, apiOutgoingResponses.fetchAllSms);
 
       Smsglobal.sms.getAll(query).then(
         () =>  Promise.reject(new Error('Expected method to reject.')),
@@ -365,27 +362,24 @@ describe('Outgoing', () => {
       );
     });
 
-
     it('should load outgoing sms list with as array of object with promise', () => {
       let query = { limit: 2 };
       nock(config.host)
         .get('/sms')
         .query(query)
-        .reply(200, apiOutgingResponses.fetchAllSms);
+        .reply(200, apiOutgoingResponses.fetchAllSms);
 
       Smsglobal.sms.getAll(query).then(
         (res) => {
           assert.equal(res.statusCode, 200);
           assert.deepEqual(
             res.data,
-            apiOutgingResponses.fetchAllSms,
+            apiOutgoingResponses.fetchAllSms,
           );
         },
         () => Promise.reject(new Error('Expected method to resolve.')),
       );
     });
-
-
   });
 
   describe('delete', () => {
@@ -420,4 +414,3 @@ describe('Outgoing', () => {
     });
   });
 });
-

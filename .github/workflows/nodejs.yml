@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [9.x, 10.x, 12.x, 14.x]
+        node-version: [22.x, 24.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -31,4 +31,4 @@ jobs:
         file: ./ccoverage.lcov
         flags: unittests
         name: codecov-umbrella
-        fail_ci_if_err: true
+        fail_ci_if_error: true
